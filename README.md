@@ -66,4 +66,7 @@ pip install numpy tensorflow scikit-learn
 - **SVM Training**: The SVM classifier is trained on the features extracted from the CNN. The SVM uses a linear kernel.
 - **Model Evaluation**: The accuracy of the hybrid CNN-SVM model is computed and displayed for the test dataset.
 
+## Author
+https://github.com/ABnano
+
 
