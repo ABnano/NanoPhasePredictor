@@ -1,9 +1,8 @@
 # NanoPhasePredictor
 NanoPhasePrediction is an AI-driven framework designed to predict material phases using a hybrid CNN-SVM approach. This project focuses on optimizing phase discovery in nano-scale phase prediction of PVDF through advanced machine learning techniques.
 
-Certainly! Below is the revised `README.md` file with the hybrid CNN-SVM model approach emphasized.
+![nano-pvdf](https://github.com/user-attachments/assets/16c28720-4f2e-489b-b274-45d93e16309f)
 
----
 
 # CNN-SVM Hybrid Model for Phase Prediction
 
