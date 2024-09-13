@@ -56,7 +56,7 @@ pip install numpy tensorflow scikit-learn
    ```
 3. Run the code:
    ```bash
-   python Phase_prediction_hybrid_210324.ipynb
+   python Phase_prediction.ipynb
    ```
 
 ## Model Training and Evaluation
