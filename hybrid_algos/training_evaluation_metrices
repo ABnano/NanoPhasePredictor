@@ -1,0 +1,49 @@
+# Step 5: Train the CNN model (only for extracting features) with 100 epochs and save history
+history = cnn_model.fit(X_train_scaled, y_train, epochs=100, batch_size=32, validation_split=0.1)
+
+# Step 6: Extract features from CNN for SVM training
+feature_extractor = Sequential(cnn_model.layers[:-1])  # Removing the softmax output layer
+X_train_features = feature_extractor.predict(X_train_scaled)
+X_test_features = feature_extractor.predict(X_test_scaled)
+
+# Step 7: Train an SVM classifier on the extracted features from CNN
+svm_classifier = SVC(kernel='linear')
+svm_classifier.fit(X_train_features, np.argmax(y_train, axis=1))
+
+# Step 8: Make predictions using SVM
+y_pred = svm_classifier.predict(X_test_features)
+
+# Step 9: Evaluate the hybrid CNN-SVM model
+accuracy = accuracy_score(np.argmax(y_test, axis=1), y_pred)
+print(f"Hybrid CNN-SVM Model Accuracy: {accuracy * 100:.2f}%")
+
+# Plot training & validation accuracy values
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+plt.plot(history.history['accuracy'], label='Train Accuracy')
+plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
+plt.title('Accuracy vs. Epochs')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy')
+plt.legend()
+
+# Plot training & validation loss values
+plt.subplot(1, 2, 2)
+plt.plot(history.history['loss'], label='Train Loss')
+plt.plot(history.history['val_loss'], label='Validation Loss')
+plt.title('Loss vs. Epochs')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+
+# Confusion Matrix
+conf_matrix = confusion_matrix(np.argmax(y_test, axis=1), y_pred)
+plt.figure(figsize=(8, 6))
+sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=[0, 1, 2], yticklabels=[0, 1, 2])
+plt.title("Confusion Matrix for CNN-SVM")
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.show()
