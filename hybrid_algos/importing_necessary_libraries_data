@@ -17,5 +17,5 @@ from tensorflow.keras.utils import to_categorical
 import seaborn as sns
 from google.colab import files
 uploaded = files.upload()
-# Step 1: Load the dataset from the provided Excel file
+# Load the dataset from the provided Excel file
 df = pd.read_excel('sample_data')
