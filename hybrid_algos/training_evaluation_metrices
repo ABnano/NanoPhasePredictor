@@ -1,19 +1,19 @@
-# Step 5: Train the CNN model (only for extracting features) with 100 epochs and save history
+# Train the CNN model (only for extracting features) and save history
 history = cnn_model.fit(X_train_scaled, y_train, epochs=100, batch_size=32, validation_split=0.1)
 
-# Step 6: Extract features from CNN for SVM training
+# Extract features from CNN for SVM training
 feature_extractor = Sequential(cnn_model.layers[:-1])  # Removing the softmax output layer
 X_train_features = feature_extractor.predict(X_train_scaled)
 X_test_features = feature_extractor.predict(X_test_scaled)
 
-# Step 7: Train an SVM classifier on the extracted features from CNN
+# Train an SVM classifier on the extracted features from CNN
 svm_classifier = SVC(kernel='linear')
 svm_classifier.fit(X_train_features, np.argmax(y_train, axis=1))
 
-# Step 8: Make predictions using SVM
+# Make predictions using SVM
 y_pred = svm_classifier.predict(X_test_features)
 
-# Step 9: Evaluate the hybrid CNN-SVM model
+# Evaluate the hybrid CNN-SVM (PPNN) model
 accuracy = accuracy_score(np.argmax(y_test, axis=1), y_pred)
 print(f"Hybrid CNN-SVM Model Accuracy: {accuracy * 100:.2f}%")
 
