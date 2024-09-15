@@ -1,5 +1,5 @@
-# Step 1: Load the dataset from the provided Excel file
-df = pd.read_excel('Updated_FTIR_DFT_AFM_Dataset_with_LineProfile_600.xlsx')
+# Load the dataset from the provided Excel file
+df = pd.read_excel('smaple_dataset.csv')
 
 # Prepare the input features and target classes
 X = df.drop("Phase (Target)", axis=1).values  # Features
@@ -8,10 +8,10 @@ y = df["Phase (Target)"].values  # Target (0, 1, 2)
 # One-hot encode the target labels for the CNN
 y_onehot = to_categorical(y)
 
-# Step 2: Split the dataset into training and testing sets
+# Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y_onehot, test_size=0.2, random_state=42)
 
-# Step 3: Standardize the input features for better CNN performance
+# Standardize the input features for better CNN performance
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
@@ -20,7 +20,7 @@ X_test_scaled = scaler.transform(X_test)
 X_train_scaled = X_train_scaled.reshape(X_train_scaled.shape[0], X_train_scaled.shape[1], 1)
 X_test_scaled = X_test_scaled.reshape(X_test_scaled.shape[0], X_test_scaled.shape[1], 1)
 
-# Step 4: Build the CNN for feature extraction from the descriptors (FTIR, DFT, AFM)
+# Build the CNN for feature extraction from the descriptors (FTIR, DFT, AFM)
 cnn_model = Sequential()
 
 # Add convolutional layers for feature extraction
